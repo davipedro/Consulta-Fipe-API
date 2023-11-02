@@ -34,38 +34,42 @@ public class Validacao {
         return false;
     }
 
-    public void validaTipo(String opcao){
+    public String validaTipo(String opcao){
         boolean verificaEntrada = verificaTipoVeiculo(opcao);
         while (!verificaEntrada){
             System.out.println("Opção inválida, verifique a opção e digite novamente");
             opcao = scanner.nextLine();
             verificaEntrada = verificaTipoVeiculo(opcao);
         }
+        return opcao;
     }
-    public void validaCodigoMarca(String codigoMarca, List<DadosMarcas> marcas){
+    public String validaCodigoMarca(String codigoMarca, List<DadosMarcas> marcas){
         boolean codigoValido = verificaCodigoMarca(codigoMarca, marcas);
         while (!(codigoValido)){
             System.out.println("Opção inválida, verifique a opção e digite novamente");
             codigoMarca = scanner.nextLine();
             codigoValido = verificaCodigoMarca(codigoMarca, marcas);
         }
+        return codigoMarca;
     }
 
-    public void validaCodigoModelo(String codigoModelo, Modelos listaModelos){
+    public String validaCodigoModelo(String codigoModelo, Modelos listaModelos){
         boolean codigoValido = verificaCodigoModelo(codigoModelo, listaModelos);
         while (!(codigoValido)){
             System.out.println("Opção inválida, verifique a opção e digite novamente");
             codigoModelo = scanner.nextLine();
             codigoValido = verificaCodigoModelo(codigoModelo, listaModelos);
         }
+        return codigoModelo;
     }
 
-    public void validaNomeModelo(String trechoNome, Modelos modelos){
+    public String validaNomeModelo(String trechoNome, Modelos modelos){
         boolean codigoValido = verificaNomeModelo(trechoNome, modelos);
         while(!(codigoValido)){
             System.out.print("Não existe modelo com esse nome, digite novamente: ");
             trechoNome = scanner.nextLine();
             codigoValido = verificaNomeModelo(trechoNome, modelos);
         }
+        return trechoNome;
     }
 }

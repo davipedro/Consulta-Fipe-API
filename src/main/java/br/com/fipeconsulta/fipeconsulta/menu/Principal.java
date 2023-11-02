@@ -57,30 +57,26 @@ public class Principal {
     private void menuMarca(){
         System.out.print("Informe o código da marca que deseja fazer consulta: ");
     }
-    private String opcaoLinhaModeloVeiculo(Modelos listaModelos){
-        menuModelo();
-        String codigoModelo = scanner.nextLine();
-        validacao.validaCodigoModelo(codigoModelo, listaModelos);
-        return codigoModelo;
-    }
 
-    private String opcaoSubListaModeloVeiculo(Modelos modelos){
-        menuSubListaModelo();
-        String trechoNome = scanner.nextLine();
-        validacao.validaNomeModelo(trechoNome, modelos);
-        return trechoNome;
-    }
     private String opcaoTipoVeiculo(){
         menuTipo();
         String opcao = scanner.nextLine();
-        validacao.validaTipo(opcao);
-        return opcao;
+        return validacao.validaTipo(opcao);
     }
     private String opcaoMarcaVeiculo(List<DadosMarcas> marcas){
         menuMarca();
         String codigoMarca = scanner.nextLine();
-        validacao.validaCodigoMarca(codigoMarca,marcas);
-        return codigoMarca;
+        return validacao.validaCodigoMarca(codigoMarca,marcas);
+    }
+    private String opcaoLinhaModeloVeiculo(Modelos listaModelos){
+        menuModelo();
+        String codigoModelo = scanner.nextLine();
+        return validacao.validaCodigoModelo(codigoModelo, listaModelos);
+    }
+    private String opcaoSubListaModeloVeiculo(Modelos modelos){
+        menuSubListaModelo();
+        String trechoNome = scanner.nextLine();
+        return validacao.validaNomeModelo(trechoNome, modelos);
     }
 
 
