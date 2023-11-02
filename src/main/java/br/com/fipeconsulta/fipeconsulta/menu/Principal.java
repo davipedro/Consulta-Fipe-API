@@ -2,6 +2,7 @@ package br.com.fipeconsulta.fipeconsulta.menu;
 
 import br.com.fipeconsulta.fipeconsulta.models.DadosMarcas;
 import br.com.fipeconsulta.fipeconsulta.models.Modelos;
+import br.com.fipeconsulta.fipeconsulta.models.Veiculo;
 import br.com.fipeconsulta.fipeconsulta.services.ConsumoAPI;
 import br.com.fipeconsulta.fipeconsulta.validacoes.Validacao;
 
@@ -20,19 +21,27 @@ public class Principal {
                 .comparing((DadosMarcas::nome)))
                 .forEach(System.out::println);
 
-        Modelos modelos = consumoAPI.listaModelos(opcaoMarcaVeiculo(marcas));
-        modelos.modelos().stream()
+        Modelos listaModelos = consumoAPI.listaModelos(opcaoMarcaVeiculo(marcas));
+        listaModelos.modelos().stream()
                 .sorted(Comparator.comparing(DadosMarcas::nome))
                 .forEach(System.out::println);
 
-        String trechoNomeModelo = opcaoModeloVeiculo(modelos);
-        modelos.modelos().stream()
+        String trechoNomeModelo = opcaoSubListaModeloVeiculo(listaModelos);
+        listaModelos.modelos().stream()
                 .filter(dadosMarcas -> dadosMarcas.nome().toLowerCase().contains(trechoNomeModelo.toLowerCase()))
                 .forEach(System.out::println);
+
+        List<Veiculo> listaTrechoModelos = consumoAPI.listaTrechoNomeModelos(opcaoLinhaModeloVeiculo(listaModelos));
+        for (Veiculo veiculo : listaTrechoModelos) {
+            System.out.println(veiculo);
+        }
 
     }
 
     private void menuModelo(){
+        System.out.print("Informe o código do modelo: ");
+    }
+    private void menuSubListaModelo(){
         System.out.print("Informe um trecho do modelo em específico: ");
     }
     private void menuTipo(){
@@ -48,9 +57,15 @@ public class Principal {
     private void menuMarca(){
         System.out.print("Informe o código da marca que deseja fazer consulta: ");
     }
-
-    private String opcaoModeloVeiculo(Modelos modelos){
+    private String opcaoLinhaModeloVeiculo(Modelos listaModelos){
         menuModelo();
+        String codigoModelo = scanner.nextLine();
+        validacao.validaCodigoModelo(codigoModelo, listaModelos);
+        return codigoModelo;
+    }
+
+    private String opcaoSubListaModeloVeiculo(Modelos modelos){
+        menuSubListaModelo();
         String trechoNome = scanner.nextLine();
         validacao.validaNomeModelo(trechoNome, modelos);
         return trechoNome;
@@ -64,7 +79,7 @@ public class Principal {
     private String opcaoMarcaVeiculo(List<DadosMarcas> marcas){
         menuMarca();
         String codigoMarca = scanner.nextLine();
-        validacao.validaCodigoModelo(codigoMarca,marcas);
+        validacao.validaCodigoMarca(codigoMarca,marcas);
         return codigoMarca;
     }
 

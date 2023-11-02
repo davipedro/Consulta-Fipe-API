@@ -22,4 +22,9 @@ public class UrlRequisicao {
         return endereco;
     }
 
+    public String linhaModelosVeiculos(String codigo){
+        endereco = endereco + "/" + codigo + "/anos";
+        return endereco;
+    }
+
 }

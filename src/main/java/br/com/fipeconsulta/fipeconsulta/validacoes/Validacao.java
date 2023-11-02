@@ -6,7 +6,6 @@ import br.com.fipeconsulta.fipeconsulta.models.TipoVeiculo;
 
 import java.util.List;
 import java.util.Scanner;
-import java.util.stream.Collectors;
 
 public class Validacao {
 
@@ -18,7 +17,11 @@ public class Validacao {
                         .toLowerCase().contains(trechoNome.toLowerCase()));
     }
 
-    public boolean verificaCodigoModelo(String codigo, List<DadosMarcas> marcas){
+    public boolean verificaCodigoModelo(String codigoModelo, Modelos listaModelos){
+        return listaModelos.modelos().stream().anyMatch(dadosMarcas -> dadosMarcas.codigo().equals(codigoModelo));
+    }
+
+    public boolean verificaCodigoMarca(String codigo, List<DadosMarcas> marcas){
         return marcas.stream().anyMatch(dadosMarcas -> dadosMarcas.codigo().equals(codigo));
     }
 
@@ -39,12 +42,21 @@ public class Validacao {
             verificaEntrada = verificaTipoVeiculo(opcao);
         }
     }
-    public void validaCodigoModelo(String codigoMarca, List<DadosMarcas> marcas){
-        boolean codigoValido = verificaCodigoModelo(codigoMarca, marcas);
+    public void validaCodigoMarca(String codigoMarca, List<DadosMarcas> marcas){
+        boolean codigoValido = verificaCodigoMarca(codigoMarca, marcas);
         while (!(codigoValido)){
             System.out.println("Opção inválida, verifique a opção e digite novamente");
             codigoMarca = scanner.nextLine();
-            codigoValido = verificaCodigoModelo(codigoMarca, marcas);
+            codigoValido = verificaCodigoMarca(codigoMarca, marcas);
+        }
+    }
+
+    public void validaCodigoModelo(String codigoModelo, Modelos listaModelos){
+        boolean codigoValido = verificaCodigoModelo(codigoModelo, listaModelos);
+        while (!(codigoValido)){
+            System.out.println("Opção inválida, verifique a opção e digite novamente");
+            codigoModelo = scanner.nextLine();
+            codigoValido = verificaCodigoModelo(codigoModelo, listaModelos);
         }
     }
 
